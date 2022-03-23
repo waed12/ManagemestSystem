@@ -1,3 +1,4 @@
+package com.oriented.user;
 
 public class Manager {
 	private String id,user_id,name,city;

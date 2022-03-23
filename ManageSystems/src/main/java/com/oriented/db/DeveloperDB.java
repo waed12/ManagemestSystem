@@ -1,3 +1,4 @@
+package com.oriented.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,30 +7,16 @@ import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
+import com.oriented.user.Developer;
 
 public class DeveloperDB {
-	  public static Connection getConnection(){  
-			Connection con = null;
-			
 
-			
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-		        con=DriverManager.getConnection("jdbc:mysql://localhost/managesystems","root",""); 
-				System.out.println("connected");
-			    
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-				System.out.println("not connected");
-			}
-			return con;
-	    } 
 	  public static List <Developer> getAllId() {
 		 List <Developer> list=new ArrayList <Developer>();
 		
 		  try {
 			
-			Connection con=ManagerDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select user_id from developer");
 			ResultSet rs=(ResultSet) prepare.executeQuery();
 			while(rs.next()) {
@@ -37,7 +24,7 @@ public class DeveloperDB {
 			develop.setUser_Id(rs.getString(1));	
 			list.add(develop);
 			}
-			con.close();
+			//con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +36,7 @@ public class DeveloperDB {
 		
 		  try {
 			
-			Connection con=ManagerDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select developer.developer_id,user.name,user.user_id,user.city from developer "
 					+ "INNER JOIN user where developer.user_id=user.user_id and developer.leader_id='"+id+"'");
 			ResultSet rs=(ResultSet) prepare.executeQuery();
@@ -62,7 +49,7 @@ public class DeveloperDB {
 			list.add(develop);
 			}
 
-			con.close();
+			//con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,7 +61,7 @@ public class DeveloperDB {
 		
 		  try {
 			
-			Connection con=DeveloperDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select user.name,user.user_id,user.city from developer INNER JOIN user where developer.user_id=user.user_id and developer.user_id='"+id+"'");
 			ResultSet rs=(ResultSet) prepare.executeQuery();
 			if(rs.next()) {
@@ -85,7 +72,7 @@ public class DeveloperDB {
 	
 			}
 
-			con.close();
+			//con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +84,7 @@ public class DeveloperDB {
 		int result=0;
 		  try {
 			
-			Connection con=DeveloperDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("insert into user(user_id,name,password,city) values(?,?,?,?)");
 			
 			
@@ -109,7 +96,7 @@ public class DeveloperDB {
 		    result=prepare.executeUpdate();
 			
 
-			con.close();
+			//con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

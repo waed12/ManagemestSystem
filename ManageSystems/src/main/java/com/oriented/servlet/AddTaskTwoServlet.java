@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oriented.db.TaskDB;
+import com.oriented.tasks.Task;
+
 /**
- * Servlet implementation class AddTask2
+ * Servlet implementation class AddTaskTwoServlet
  */
-@WebServlet("/AddTask2")
-public class AddTask2 extends HttpServlet {
+@WebServlet("/AddTaskTwoServlet")
+public class AddTaskTwoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTask2() {
+    public AddTaskTwoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

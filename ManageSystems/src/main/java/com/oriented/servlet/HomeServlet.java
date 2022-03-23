@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oriented.db.TaskDB;
+import com.oriented.tasks.Task;
+
 /**
- * Servlet implementation class ViewLeader
+ * Servlet implementation class HomeServlet
  */
-@WebServlet("/ViewLeader")
-public class ViewLeader extends HttpServlet {
+@WebServlet("/HomeServlet")
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewLeader() {
+    public HomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,31 +34,33 @@ public class ViewLeader extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		request.getRequestDispatcher("menu.html").include(request, response);
-           
-		out.print("<a href='AddLeader.html'>"+"<p>Add New Leader</p>"+"</a>");
-			          
-			        out.println("<h1>Leader List</h1>");  
-			          
-			        List<Leader> list1=LeaderDB.getAllLeader();  
-			       
-			        out.print("<table border='1' width='auto'");  
-			        out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>view developer</th><th>add task</th></tr>");  
-			        for(Leader l:list1){ 
-			        
-			         out.print("<tr><td>"+l.getId()+"</td><td>"+l.getName()+"</td><td>"+l.getUser_Id()+"</td><td>"+l.getCity()+
-			        		 "</td><td><a href='ViewDeveloper?id="+l.getUser_Id()+"'>view</a></td><td><a href='AddTask?id="+l.getUser_Id()+"'>add</a></td></tr>");
-			        
-			         
-			         
-			        }  
-			        out.print("</table>");   
-			        
-			        out.close();
-			       
-			
+		HttpSession session=request.getSession(false);
+		String se=(String)session.getAttribute("user");
+		
+		List <Task> list=TaskDB.getTask(se);
+		
+		
+        for(Task t:list){  
+          Task task=new Task();
+          out.println("</br>");
+          out.print("<form action=EditTaskState>");
+          out.print("<div style=text-align:Center>");
+          out.println("<h1>Your Task is:"+t.getText()+"</h1>");
+          out.print("<select name='state' style='width:150px'>");  
+          out.print("<option>In progress</option>");  
+          out.print("<option>Done</option>");  
+          out.print("<option>Other</option>");  
+          out.print("  </select>");
+          out.print("<tr><td colspan='2'><input type='submit' value='save '/></td></tr>");  
+          out.print("</div>");
+          out.print("</form>");
+
+          
+        }  
 	}
 
 	/**
@@ -63,7 +68,7 @@ public class ViewLeader extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+    doGet(request,response);
 	}
 
 }

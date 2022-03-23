@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,18 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.oriented.db.ConnectionDB;
+import com.oriented.db.DeveloperDB;
+import com.oriented.db.LeaderDB;
+import com.oriented.user.Developer;
 
 /**
- * Servlet implementation class AddLeader
+ * Servlet implementation class AddDeveloperServlet
  */
-@WebServlet("/AddLeader")
-public class AddLeader extends HttpServlet {
+@WebServlet("/AddDeveloperServlet")
+public class AddDeveloperServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddLeader() {
+    public AddDeveloperServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +40,7 @@ public class AddLeader extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		request.getRequestDispatcher("menu.html").include(request, response);
-		Leader leader=new Leader();
+		Developer develop=new Developer();
 		
 		
 		String name=request.getParameter("name");
@@ -44,31 +48,29 @@ public class AddLeader extends HttpServlet {
 		String pass=request.getParameter("psw");
 		String city=request.getParameter("city");
 		
-		leader.setName(name);
-		leader.setId(id);
-		leader.setPassword(pass);
-		leader.setCity(city);
+		develop.setName(name);
+		develop.setId(id);
+		develop.setPassword(pass);
+		develop.setCity(city);
 		
-		 int result=LeaderDB.AddLeader(leader); 
+		 int result=DeveloperDB.AddDeveloper(develop); 
 		 if(result>0) {
-			 
-			 out.print("<p>Leader Added Successfully</p>");
-			 request.getRequestDispatcher("AddLeader.html").forward(request, response);	
-
+			 out.print("<p>Developer Added Successfully</p>");
+			 request.getRequestDispatcher("AddDeveloper.html").forward(request, response);	
 				try {
-					Connection con=LeaderDB.getConnection();
+					Connection con=ConnectionDB.getConnection();
 					PreparedStatement prepare;
-					prepare = (PreparedStatement) con.prepareStatement("insert into leader(user_id) values(?)");
-				    prepare.setString(1, leader.getId());
+					prepare = (PreparedStatement) con.prepareStatement("insert into developer(user_id,leader_id) values(?,?)");
+				    prepare.setString(1, develop.getId());
 				    prepare.execute();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+			 out.print("sucess");
+				
 			
 		 }
-		 
 	}
 
 	/**

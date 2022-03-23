@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,18 +15,25 @@ import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
+import com.oriented.db.ConnectionDB;
+import com.oriented.db.DeveloperDB;
+import com.oriented.db.LeaderDB;
+import com.oriented.db.ManagerDB;
+import com.oriented.user.Developer;
+import com.oriented.user.Leader;
+import com.oriented.user.Manager;
 
 /**
- * Servlet implementation class LoginServ
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServ")
-public class LoginServ extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServ() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,10 +41,9 @@ public class LoginServ extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -57,20 +63,19 @@ public class LoginServ extends HttpServlet {
 		
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-	        con=DriverManager.getConnection("jdbc:mysql://localhost/managesystems","root",""); 
+			
+	        con=ConnectionDB.getConnection();
 			//out.println("connected");
 	        Statement stm=(Statement) con.createStatement();
 	        ResultSet result=(ResultSet) stm.executeQuery("select * from user where User_id='"+username+"' and Password='"+password+"'");
 	        if(result.next()) {
-	        	//out.print("success");
-	        	// login manager
+	        	
 	    		Manager manager=ManagerDB.getId();
-	    			            //out.println(manager.getId());	 
+	    			            
 			      if(manager.getId().equals(username)) {
 		         	HttpSession session=request.getSession();
 		                	session.setAttribute("user", username);
-		                	request.getRequestDispatcher("HomeServ").forward(request, response);
+		                	request.getRequestDispatcher("HomeServlet").forward(request, response);
 		                	
 			            }
 			          
@@ -81,7 +86,7 @@ public class LoginServ extends HttpServlet {
 				          if(leader.getUser_Id().equals(username)) {
 			                	HttpSession session=request.getSession();
 			                	session.setAttribute("user", username);
-			                	request.getRequestDispatcher("HomeServ").forward(request, response);
+			                	request.getRequestDispatcher("HomeServlet").forward(request, response);
 			                	break;
 				            }
 				           
@@ -93,7 +98,7 @@ public class LoginServ extends HttpServlet {
 				          if(develop.getUser_Id().equals(username)) {
 			                	HttpSession session=request.getSession();
 			                	session.setAttribute("user", username);
-			                	request.getRequestDispatcher("HomeServ").forward(request, response);
+			                	request.getRequestDispatcher("HomeServlet").forward(request, response);
 			                	break;
 				            }
 				           

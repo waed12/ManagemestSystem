@@ -1,3 +1,4 @@
+package com.oriented.tasks;
 
 public class Task {
 	private String task_id,user_id,text,name,state;

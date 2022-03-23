@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oriented.db.DeveloperDB;
+import com.oriented.db.LeaderDB;
+import com.oriented.db.ManagerDB;
+import com.oriented.user.Developer;
+import com.oriented.user.Leader;
+import com.oriented.user.Manager;
+
 /**
- * Servlet implementation class AuthoritiesServ
+ * Servlet implementation class AuthoritiesServlet
  */
-@WebServlet("/AuthoritiesServ")
-public class AuthoritiesServ extends HttpServlet {
+@WebServlet("/AuthoritiesServlet")
+public class AuthoritiesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthoritiesServ() {
+    public AuthoritiesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,8 +51,8 @@ public class AuthoritiesServ extends HttpServlet {
          
           out.print("<a href='AddLeader.html'>"+"<p>Add Leader</p>"+"</a>");
           out.print("<tr><th><a href='AddDeveloper.html'>"+"<p>Add Developer</p>"+"</a>");
-          out.print("<a href='ViewTask'>"+"<p>View Tasks</p>"+"</a>");
-         // out.print("<tr><th><a href='AddTask'>"+"<p>Add Task</p>"+"</a>");
+          out.print("<a href='ViewAllLeader'>"+"<p>View All Leaders</p>"+"</a>");
+          out.print("<tr><th><a href='ViewAllDeveloper'>"+"<p>View All Developers</p>"+"</a>");
           out.print("</div>");
   	     }
 
@@ -55,8 +62,6 @@ public class AuthoritiesServ extends HttpServlet {
 			if(leader.getUser_Id().equals(se)) {
 		          out.print("<div style=text-align:center>");
 		          out.print("<a href='ViewDeveloper'>"+"<p>View Developer</p>"+"</a>");
-		          out.print("<a href='ViewTask'>"+"<p>View Tasks</p>"+"</a>");
-		        //  out.print("<tr><th><a href='AddTask'>"+"<p>Add Task</p>"+"</a>");
 		          out.print("</div>");
 				break;
 			}
@@ -67,7 +72,6 @@ public class AuthoritiesServ extends HttpServlet {
 		for(Developer develop:list2){  	 
 			if(develop.getUser_Id().equals(se)) {
 				 out.print("<div style=text-align:center>");
-		         out.print("<a href='View Tasks'>"+"<p>View Tasks</p>"+"</a>");
 		         out.print("</div>");
 			}
 		}

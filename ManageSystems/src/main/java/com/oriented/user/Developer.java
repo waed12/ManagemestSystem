@@ -1,6 +1,7 @@
+package com.oriented.user;
 
-public class Leader {
-	private String id,user_id,name,city,password,text;
+public class Developer {
+	private String id,user_id,leader_id,name,password,city,text;
 	public void setId(String id) {
 		this.id=id;
 	}
@@ -12,6 +13,12 @@ public class Leader {
 	}
 	public String getUser_Id() {
 		return user_id;
+	}
+	public void setLeader_Id(String leader_id) {
+		this.leader_id=user_id;
+	}
+	public String getLeader_Id() {
+		return leader_id;
 	}
 	public void setName(String name) {
 		this.name=name;

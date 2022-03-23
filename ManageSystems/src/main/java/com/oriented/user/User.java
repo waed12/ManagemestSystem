@@ -1,3 +1,4 @@
+package com.oriented.user;
 
 public class User {
 	private String id,name,password,city;

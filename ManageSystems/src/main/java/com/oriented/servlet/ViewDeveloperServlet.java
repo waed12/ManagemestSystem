@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oriented.db.DeveloperDB;
+import com.oriented.db.LeaderDB;
+import com.oriented.db.ManagerDB;
+import com.oriented.user.Developer;
+import com.oriented.user.Leader;
+import com.oriented.user.Manager;
+
 /**
- * Servlet implementation class ViewDeveloper
+ * Servlet implementation class ViewDeveloperServlet
  */
-@WebServlet("/ViewDeveloper")
-public class ViewDeveloper extends HttpServlet {
+@WebServlet("/ViewDeveloperServlet")
+public class ViewDeveloperServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewDeveloper() {
+    public ViewDeveloperServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,42 +41,38 @@ public class ViewDeveloper extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		request.getRequestDispatcher("menu.html").include(request, response);
-		
 		HttpSession session=request.getSession(false);
 		String se=(String)session.getAttribute("user");
 		
 		Manager manager=ManagerDB.getId();
-		
 		if(manager.getId().equals(se)) {
 			
-		out.print("<a href='AddDeveloper.html'>"+"<p>Add New Developer</p>"+"</a>");
-		out.println("<h1>Developer List</h1>"); 
+			out.print("<a href='AddDeveloper.html'>"+"<p>Add New Developer</p>"+"</a>");
+			out.println("<h1>Developer List</h1>"); 
 		
-		String id=request.getParameter("id");
+			String id=request.getParameter("id");
 		
-        List<Developer> list2=DeveloperDB.getAllDeveloper(id);  
+		
+			List<Developer> developerList=DeveloperDB.getAllDeveloper(id);  
         
-        out.print("<table border='1' width='auto'>");  
-        out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>add task</th></tr>");  
-        for(Developer d:list2){  
-        out.print("<tr><td>"+d.getId()+"</td><td>"+d.getName()+"</td><td>"+d.getUser_Id()+"</td><td>"+d.getCity()+
-      		 "</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
-        }  
-        out.print("</table>");  
+			out.print("<table border='1' width='auto'>");  
+			out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>add task</th></tr>");  
+			for(Developer d:developerList){ 
+				out.print("<tr><td>"+d.getId()+"</td><td>"+d.getName()+"</td><td>"+d.getUser_Id()+"</td><td>"+d.getCity()+
+						"</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
+				out.print("</table>");  
 	   }
-		List <Leader> list1=LeaderDB.getAllId();
-		for(Leader leader:list1){  	 
+	}
+		
+		
+		List <Leader> leaderList=LeaderDB.getAllId();
+		for(Leader leader:leaderList){  	 
 			if(leader.getUser_Id().equals(se)) {
-	         
-				
 				out.println("<h1>Developer List</h1>"); 
-				
-				
-		        List<Developer> list2=DeveloperDB.getAllDeveloper(se);  
-		        
+		        List<Developer> developerList=DeveloperDB.getAllDeveloper(se);  
 		        out.print("<table border='1' width='auto'>");  
 		        out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>add task</th></tr>");  
-		        for(Developer d:list2){  
+		        for(Developer d:developerList){  
 		        out.print("<tr><td>"+d.getId()+"</td><td>"+d.getName()+"</td><td>"+d.getUser_Id()+"</td><td>"+d.getCity()+
 		      		 "</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
 		        }  
@@ -79,7 +82,6 @@ public class ViewDeveloper extends HttpServlet {
 
 		}
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

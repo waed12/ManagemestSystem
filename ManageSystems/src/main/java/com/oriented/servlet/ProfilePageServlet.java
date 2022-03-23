@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oriented.db.DeveloperDB;
+import com.oriented.db.LeaderDB;
+import com.oriented.db.ManagerDB;
+import com.oriented.user.Developer;
+import com.oriented.user.Leader;
+import com.oriented.user.Manager;
+
 /**
- * Servlet implementation class ProfilePage
+ * Servlet implementation class ProfilePageServlet
  */
-@WebServlet("/ProfilePage")
-public class ProfilePage extends HttpServlet {
+@WebServlet("/ProfilePageServlet")
+public class ProfilePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfilePage() {
+    public ProfilePageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,8 +44,7 @@ public class ProfilePage extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		String se=(String)session.getAttribute("user");
 		
-	    Manager manager=ManagerDB.getId(); 
-	    
+	    Manager manager=ManagerDB.getId();  
 		if(manager.getId().equals(se)) {
 		manager=ManagerDB.getManager(se);
         request.setAttribute("Name", manager.getName()); 
@@ -48,8 +54,8 @@ public class ProfilePage extends HttpServlet {
   	     }
 
 
-		List <Leader> list1=LeaderDB.getAllId();
-		for(Leader leader:list1){  	 
+		List <Leader> leaderList=LeaderDB.getAllId();
+		for(Leader leader:leaderList){  	 
 			if(leader.getUser_Id().equals(se)) {
               leader=LeaderDB.getLeader(se);
               request.setAttribute("Name", leader.getName()); 
@@ -61,8 +67,8 @@ public class ProfilePage extends HttpServlet {
    
 		}
 //Developer 
-		List <Developer> list2=DeveloperDB.getAllId();
-		for(Developer develop:list2){  	 
+		List <Developer> developerList=DeveloperDB.getAllId();
+		for(Developer develop:developerList){  	 
 			if(develop.getUser_Id().equals(se)) {
 	          develop=DeveloperDB.getDeveloper(se);
 	          request.setAttribute("Name", develop.getName()); 
@@ -70,10 +76,8 @@ public class ProfilePage extends HttpServlet {
 	          request.setAttribute("City", develop.getCity());
 	          request.getRequestDispatcher("ProfilePage.jsp").forward(request, response);
 				break;
-    }
-   
-}
-		
+           }
+		}
 	}
 
 	/**

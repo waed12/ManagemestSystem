@@ -1,3 +1,4 @@
+package com.oriented.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,29 +7,16 @@ import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
+import com.oriented.tasks.Task;
 
 public class TaskDB {
-	  public static Connection getConnection(){  
-			Connection con = null;
 
-			
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-		        con=DriverManager.getConnection("jdbc:mysql://localhost/managesystems","root",""); 
-				System.out.println("connected");
-			    
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-				System.out.println("not connected");
-			}
-			return con;
-	    }  
 	  public static List<Task> getTask(String userId) {
 		List  <Task> list=new ArrayList <Task>();
 		  
 		
 		  try {
-			Connection con=TaskDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement ps=(PreparedStatement) con.prepareStatement("select text from task where user_id='"+userId+"'");
 			ResultSet result=(ResultSet) ps.executeQuery();
 			while(result.next()) {
@@ -36,7 +24,7 @@ public class TaskDB {
 			task.setText(result.getString(1));	
 			list.add(task);
 			}
-			con.close();
+			//con.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,7 +37,7 @@ public class TaskDB {
 		int result=0;
 		  try {
 			
-			Connection con=TaskDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("insert into task(user_id,text,state) values(?,?,?)");
 			
 			
@@ -71,7 +59,7 @@ public class TaskDB {
 		  
 		
 		  try {
-			Connection con=TaskDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement ps=(PreparedStatement) con.prepareStatement("select task.user_id,user.name, task.text from task INNER JOIN user where task.user_id=user.user_id");
 			ResultSet result=(ResultSet) ps.executeQuery();
 			while(result.next()) {
@@ -82,7 +70,7 @@ public class TaskDB {
 			
 			list.add(task);
 			}
-			con.close();
+			//con.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +83,7 @@ public class TaskDB {
 		  
 		
 		  try {
-			Connection con=TaskDB.getConnection();
+			Connection con=ConnectionDB.getConnection();
 			PreparedStatement ps=(PreparedStatement) con.prepareStatement("select developer.user_id,user.name,task.text from developer INNER JOIN task,user"
 					+ " where developer.user_id=user.user_id and developer.user_id=task.user_id and developer.leader_id='"+id+"'");
 			ResultSet result=(ResultSet) ps.executeQuery();
@@ -107,7 +95,7 @@ public class TaskDB {
 			
 			list.add(task);
 			}
-			con.close();
+			//con.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -119,14 +107,14 @@ public class TaskDB {
 		  int result=0;
 		
 	        try{  
-	            Connection con=TaskDB.getConnection();  
+	            Connection con=ConnectionDB.getConnection();  
 	            PreparedStatement prepare=(PreparedStatement) con.prepareStatement("update Task set state=? where user_id='"+id+"'");  
 	            
 	            prepare.setString(1,task.getState());  
 	            
 	            result=prepare.executeUpdate();  
 	              
-	            con.close();  
+	           // con.close();  
 	    	} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

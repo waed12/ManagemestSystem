@@ -1,4 +1,4 @@
-
+package com.oriented.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oriented.db.TaskDB;
+import com.oriented.tasks.Task;
+
 /**
- * Servlet implementation class EditTaskState
+ * Servlet implementation class EditTaskStateServlet
  */
-@WebServlet("/EditTaskState")
-public class EditTaskState extends HttpServlet {
+@WebServlet("/EditTaskStateServlet")
+public class EditTaskStateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditTaskState() {
+    public EditTaskStateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
