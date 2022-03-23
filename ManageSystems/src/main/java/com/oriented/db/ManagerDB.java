@@ -10,7 +10,7 @@ import com.mysql.jdbc.ResultSet;
 import com.oriented.user.Manager;
 
 public class ManagerDB {
-
+//
 	  public static  Manager getId() {
 		  Manager manager=new Manager();
 		

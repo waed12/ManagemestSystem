@@ -10,7 +10,7 @@ import com.oriented.db.ConnectionDB;
 /**
  * Application Lifecycle Listener implementation class DbListener
  *
- */
+ *///
 @WebListener
 public class DbListener implements ServletContextListener {
 

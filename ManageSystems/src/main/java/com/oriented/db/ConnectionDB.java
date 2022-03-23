@@ -8,7 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class ConnectionDB  {
-	
+	//
 	private static Connection con;
 	
 	  public static Connection getConnection() {

@@ -23,7 +23,7 @@ public class User {
 		
 		this.password=password;
 	}
-
+//
 	public void setCity(String city) {
 		this.city =city;
 	}

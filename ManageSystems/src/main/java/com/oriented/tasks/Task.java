@@ -20,7 +20,7 @@ public class Task {
 	}
 	public String getName() {
 		return name;
-	}
+	}//
 	public void setText(String text) {
 		this.text=text;
 	}

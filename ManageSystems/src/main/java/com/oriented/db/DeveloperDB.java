@@ -10,7 +10,7 @@ import com.mysql.jdbc.ResultSet;
 import com.oriented.user.Developer;
 
 public class DeveloperDB {
-
+//
 	  public static List <Developer> getAllId() {
 		 List <Developer> list=new ArrayList <Developer>();
 		

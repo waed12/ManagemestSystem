@@ -19,7 +19,7 @@ public class Leader {
 	}
 	public String getName() {
 		return name;
-	}
+	}//
 	public String getPassword() {
 		return password;
 		

@@ -10,7 +10,7 @@ import com.mysql.jdbc.ResultSet;
 import com.oriented.user.Leader;
 
 public class LeaderDB {
-
+//
 	  public static List <Leader> getAllId() {
 		 List <Leader> list=new ArrayList <Leader>();
 		
