@@ -17,6 +17,7 @@ import com.mysql.jdbc.PreparedStatement;
 import com.oriented.db.ConnectionDB;
 import com.oriented.db.DeveloperDB;
 import com.oriented.db.LeaderDB;
+import com.oriented.tasks.Task;
 import com.oriented.user.Developer;
 import com.oriented.user.Leader;
 
@@ -52,46 +53,54 @@ public class AddDeveloperServlet extends HttpServlet {
 		String id=request.getParameter("id");
 		String pass=request.getParameter("psw");
 		String city=request.getParameter("city");
-		String leaderId=request.getParameter("state");
+		String leaderName=request.getParameter("Leader");
 		
 		
 		develop.setName(name);
-		develop.setId(id);
+		develop.setUser_Id(id);
 		develop.setPassword(pass);
 		develop.setCity(city);
-		develop.setLeader(leaderId);
+		develop.setLeader(leaderName);
 		
 		
 
- 	 	
-		 
-		
 		
 		
 		 int result=DeveloperDB.AddDeveloper(develop); 
 		 
 		 if(result>0) {
 			
-			 
-			
-			// out.print("<p>Developer Added Successfully</p>");
-			 request.getRequestDispatcher("AddDeveloper.jsp").forward(request, response);	
-				try {
-					Connection con=ConnectionDB.getConnection();
-					PreparedStatement prepare;
-					
-					prepare = (PreparedStatement) con.prepareStatement("insert into developer(user_id,leader_id) values(?,?)");
-					   prepare.setString(1, develop.getId());
-					   prepare.setString(2,develop.getLeader());
-				 
-				    ////
-				    prepare.execute();
-				    /// insert task ...
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 			 out.print("sucess");
+			    if(result>0) {
+
+					try {
+						Connection con=ConnectionDB.getConnection();
+						PreparedStatement PrepareDeveloper;
+						PrepareDeveloper = (PreparedStatement) con.prepareStatement("insert into developer(user_id,leader_id) values(?,?)");
+						PrepareDeveloper.setString(1, develop.getUser_Id());
+				    	List <Leader> Leaderlist=LeaderDB.getAllId();
+			    	 	for(Leader leader:Leaderlist){  	 
+					          if(leader.getName().equals(develop.getLeader())) {
+					        	  PrepareDeveloper.setString(2, leader.getUser_Id());
+				                	break;
+					            }
+					           
+				           }
+					    Task task=new Task();
+			    	 	PrepareDeveloper.execute();
+						PreparedStatement PrepareTask=(PreparedStatement) con.prepareStatement("insert into task(user_id,text,state) values(?,?,?)");
+						
+						
+						PrepareTask.setString(1, develop.getUser_Id());
+						PrepareTask.setString(2, " ");
+						PrepareTask.setString(3, " ");
+						PrepareTask.executeUpdate();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 				
 			
 		 }

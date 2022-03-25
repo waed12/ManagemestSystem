@@ -85,27 +85,23 @@ public class DeveloperDB {
 	  public static int AddDeveloper(Developer develop) {
 			 
 		int result=0;
-		int result1=0;
+		
 		  try {
 			
 			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("insert into user(user_id,name,password,city) values(?,?,?,?)");
 			
 			
-		    prepare.setString(1, develop.getId());
+		    prepare.setString(1, develop.getUser_Id());
 		    prepare.setString(2, develop.getName());
 		    prepare.setString(3, develop.getPassword());
 		    prepare.setString(4, develop.getCity());
       
 		    result=prepare.executeUpdate();
 		    
-		    if(result>0) {
-		      Task task=new Task();
-		      PreparedStatement prepareTAsk=(PreparedStatement) con.prepareStatement("insert into task(user_id,text,task) values(?,?,?)");
-		      prepare.setString(1, develop.getId());
-		      result1=prepare.executeUpdate();
+
 		    
-		    }
+		   
 			
 
 			//con.close();

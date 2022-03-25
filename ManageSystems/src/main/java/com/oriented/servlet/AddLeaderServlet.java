@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.jdbc.PreparedStatement;
 import com.oriented.db.ConnectionDB;
 import com.oriented.db.LeaderDB;
+import com.oriented.tasks.Task;
 import com.oriented.user.Leader;
 
 /**
@@ -50,7 +51,7 @@ public class AddLeaderServlet extends HttpServlet {
 		String city=request.getParameter("city");
 		
 		leader.setName(name);
-		leader.setId(id);
+		leader.setUser_Id(id);
 		leader.setPassword(password);
 		leader.setCity(city);
 		
@@ -58,14 +59,24 @@ public class AddLeaderServlet extends HttpServlet {
 		 if(result>0) {
 			 
 			 out.print("<p>Leader Added Successfully</p>");
-			 request.getRequestDispatcher("AddLeader.jsp").forward(request, response);	
+			 request.getRequestDispatcher("ViewLeaderServlet").forward(request, response);	
 
 				try {
 					Connection con=ConnectionDB.getConnection();
-					PreparedStatement prepare;
-					prepare = (PreparedStatement) con.prepareStatement("insert into leader(user_id) values(?)");
-				    prepare.setString(1, leader.getId());
-				    prepare.execute();
+					PreparedStatement PrapereLeader;
+					PrapereLeader = (PreparedStatement) con.prepareStatement("insert into leader(user_id) values(?)");
+					PrapereLeader.setString(1, leader.getUser_Id());
+					PrapereLeader.executeUpdate();
+					
+				    Task task=new Task();
+		    	 	
+					PreparedStatement PrepareTask=(PreparedStatement) con.prepareStatement("insert into task(user_id,text,state) values(?,?,?)");
+					
+					
+					PrepareTask.setString(1, leader.getUser_Id());
+					PrepareTask.setString(2, " ");
+					PrepareTask.setString(3, " ");
+					PrepareTask.executeUpdate();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

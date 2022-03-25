@@ -37,7 +37,7 @@ public class LeaderDB {
 	  public static List <Leader> getAllLeader() {
 		 List <Leader> list=new ArrayList <Leader>();
 		
-		  try {
+		  try {/// task,state
 			
 			Connection con=ConnectionDB.getConnection();
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select leader.leader_id,user.name,user.user_id,user.city from leader INNER JOIN user where leader.user_id=user.user_id ");
@@ -90,7 +90,7 @@ public class LeaderDB {
 			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("insert into user(user_id,name,password,city) values(?,?,?,?)");
 			
 			
-		    prepare.setString(1, leader.getId());
+		    prepare.setString(1, leader.getUser_Id());
 		    prepare.setString(2, leader.getName());
 		    prepare.setString(3, leader.getPassword());
 		    prepare.setString(4, leader.getCity());

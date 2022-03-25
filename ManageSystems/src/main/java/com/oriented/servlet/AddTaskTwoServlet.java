@@ -43,13 +43,11 @@ public class AddTaskTwoServlet extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		String se=(String)session.getAttribute("user");
 		Task task=new Task();
+		
 		String id=request.getParameter("id");
 		String text=request.getParameter("text");
 		
-		task.setUser_Id(id);
-		task.setText(text);
-		
-		int result=TaskDB.AddTask(task);
+		int result=TaskDB.EditTask(task,text,id);
 		
 		
 		if(result>0) {

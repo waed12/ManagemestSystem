@@ -34,9 +34,9 @@
    		
   
         <label for="Leader"><b>Leader:</b></label>
-    	<select name='state' style='width:150px'>
+    	<select name='Leader' style='width:150px'>
     	 <c:forEach items="${list}" var="u"> 
-		 <option>${u.getUser_Id()}</option>
+		 <option>${u.getName()}</option>
 		 </c:forEach>
 		 </select>
 		 </br> </br> </br>

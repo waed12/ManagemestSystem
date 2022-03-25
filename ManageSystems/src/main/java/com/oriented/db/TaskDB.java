@@ -54,6 +54,26 @@ public class TaskDB {
 		}
 		  return result;
 	  }
+	  public static int EditTask(Task task,String text,String id) {
+			 
+		int result=0;
+		  try {
+			
+			Connection con=ConnectionDB.getConnection();
+			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("update task set text='"+text+"', state=? where user_id='"+id+"'");
+			
+		    prepare.setString(1, "Has been sent");
+		    
+		    result=prepare.executeUpdate();
+			
+
+			//con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return result;
+	  }
 	  public static Task getInformation(String id) {
 		  Task task=new Task();
 		
@@ -65,7 +85,7 @@ public class TaskDB {
 			task.setUser_Id(result.getString(1));
 			task.setName(result.getString(2));
 			task.setText(result.getString(3));	
-			task.setText(result.getString(3));	
+			
 			}
 			//con.close();
 			
