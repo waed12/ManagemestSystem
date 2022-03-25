@@ -3,12 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="windows-1256">
 <title>Personal Page</title>
 <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-
+   <jsp:include page="menu.html"/>
+   
+   
   <div class="imgcontainer">
     <img src="Personal.ico" alt="Avatar"   text-align: center;
        margin: 24px 0 12px 0;>

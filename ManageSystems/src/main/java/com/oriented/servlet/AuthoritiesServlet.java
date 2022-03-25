@@ -49,10 +49,9 @@ public class AuthoritiesServlet extends HttpServlet {
 		if(manager.getId().equals(se)) {
           out.print("<div style=text-align:center>");
          
-          out.print("<a href='AddLeader.html'>"+"<p>Add Leader</p>"+"</a>");
-          out.print("<tr><th><a href='AddDeveloper.html'>"+"<p>Add Developer</p>"+"</a>");
-          out.print("<a href='ViewAllLeader'>"+"<p>View All Leaders</p>"+"</a>");
-          out.print("<tr><th><a href='ViewAllDeveloper'>"+"<p>View All Developers</p>"+"</a>");
+          out.print("<a href='AddLeader.jsp'>"+"<p>Add Leader</p>"+"</a>");
+          out.print("<tr><th><a href='AddDeveloper.jsp'>"+"<p>Add Developer</p>"+"</a>");
+          out.print("<tr><th><a href='ViewAllEmployees'>"+"<p>View All Employees Have Tasks</p>"+"</a>");
           out.print("</div>");
   	     }
 

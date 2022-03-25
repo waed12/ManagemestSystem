@@ -1,7 +1,7 @@
 package com.oriented.user;
 
 public class User {
-	private String id,name,password,city;
+	private String id,name,password,city,text,state;
 
 	public void setId(String id) {
 		this.id=id;
@@ -29,5 +29,17 @@ public class User {
 	}
 	public String getCity() {
 		return city;
+	}
+	public void setText(String text) {
+		this.text =text;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setState(String state) {
+		this.state =state;
+	}
+	public String getState() {
+		return state;
 	}
 }

@@ -37,14 +37,13 @@ public class AddTaskOneServlet extends HttpServlet {
 		String id1=request.getParameter("id");
 		
 		out.print("<form action='AddTask2'>");
-		
 		out.print("<div style=text-align:Center>");
 		out.print("<h1>Add new Task</h1>");
-    	out.print("<label for=\"uid\"><b>User Id:</b></label>");
+    	out.print("<label for=uid><b>User Id:</b></label>");
     	out.print("<input type='text' value="+id1+" name='id'></br>");	
-    	out.print("<label for=\"text\"><b>text:</b></label>");
+    	out.print("<label for=text><b>text:</b></label>");
     	out.print("<input type='text' placeholder='Enter Text' name='text' required></br>");  
-    	out.print("<button type=\"submit\">Add</button></br>");
+    	out.print("<button type=submit>Add</button></br>");
     	out.print("</form>");
     	out.print("</div>");
 	}

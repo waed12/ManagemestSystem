@@ -58,7 +58,7 @@ public class AddLeaderServlet extends HttpServlet {
 		 if(result>0) {
 			 
 			 out.print("<p>Leader Added Successfully</p>");
-			 request.getRequestDispatcher("AddLeader.html").forward(request, response);	
+			 request.getRequestDispatcher("AddLeader.jsp").forward(request, response);	
 
 				try {
 					Connection con=ConnectionDB.getConnection();

@@ -17,11 +17,12 @@ public class LeaderDB {
 		  try {
 			
 			Connection con=ConnectionDB.getConnection();
-			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select user_id from leader");
+			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select user.user_id,user.name from leader INNER JOIN user where leader.user_id=user.user_id");
 			ResultSet rs=(ResultSet) prepare.executeQuery();
 			while(rs.next()) {
 		    Leader leader=new Leader();
 			leader.setUser_Id(rs.getString(1));	
+			leader.setName(rs.getString(2));	
 			list.add(leader);
 			}
 			//con.close();
@@ -31,6 +32,8 @@ public class LeaderDB {
 		}
 		  return list;
 	  }  
+	  
+	  
 	  public static List <Leader> getAllLeader() {
 		 List <Leader> list=new ArrayList <Leader>();
 		

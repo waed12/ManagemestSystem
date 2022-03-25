@@ -1,7 +1,7 @@
 package com.oriented.user;
 
 public class Developer {
-	private String id,user_id,leader_id,name,password,city,text;
+	private String id,user_id,leader_id,name,password,city,text,state,leader;
 	public void setId(String id) {
 		this.id=id;
 	}
@@ -46,6 +46,20 @@ public class Developer {
 	}
 	public String getText() {
 		return text;
+	
+}
+	public void setState(String state) {
+		this.state=state;
+	}
+	public String getState() {
+		return state;
+	
+}
+	public void setLeader(String leader) {
+		this.leader=leader;
+	}
+	public String getLeader() {
+		return leader;
 	
 }
 }

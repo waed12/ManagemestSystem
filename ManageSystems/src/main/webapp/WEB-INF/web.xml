@@ -128,6 +128,15 @@
   </servlet-mapping>
   
     <servlet>
+  <servlet-name>EditTask</servlet-name>
+  <servlet-class>com.oriented.servlet.EditTaskStateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>EditTask</servlet-name>
+  <url-pattern>/EditTaskState</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
   <servlet-name>ViewLeader</servlet-name>
   <servlet-class>com.oriented.servlet.ViewLeaderServlet</servlet-class>
   </servlet>
@@ -136,7 +145,7 @@
   <url-pattern>/ViewAllLeader</url-pattern>
   </servlet-mapping>
   
-      <servlet>
+  <servlet>
   <servlet-name>ViewDeveloper</servlet-name>
   <servlet-class>com.oriented.servlet.ViewDeveloperServlet</servlet-class>
   </servlet>
@@ -146,7 +155,14 @@
   </servlet-mapping>
   
 
-   
+  <servlet>
+  <servlet-name>ViewAllEmployees</servlet-name>
+  <servlet-class>com.oriented.servlet.ViewAllEmployeesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>ViewAllEmployees</servlet-name>
+  <url-pattern>/ViewAllEmployees</url-pattern>
+  </servlet-mapping>
 
   
   

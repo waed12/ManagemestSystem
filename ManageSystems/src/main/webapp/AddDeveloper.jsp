@@ -1,12 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=windows-1256"
+    pageEncoding="windows-1256"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="windows-1256">
-<title>Add Leader</title>
-<link rel="stylesheet" href="Style.css">
+<title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="menu.html"/>
+
+<%@page import="com.oriented.db.LeaderDB,com.oriented.user.Leader,java.util.*"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <form action="AddDeveloper" method="post">
+  	<% List <Leader> list=LeaderDB.getAllId();
+    	 request.setAttribute("list",list);  %>    
+
+
+
 
   <div class="container">
       	<h1>Add new Developer</h1>
@@ -22,11 +32,17 @@
       	<label for="uname"><b>City:</b></label>
    		<input type="text" placeholder="Enter City" name="city" required><br> 
    		
-   		     		
-      	<label for="leaderId"><b>Leader:</b></label>
-   		<input type="text" placeholder="Enter Leader" name="leader" required><br>      
-   		
+  
+        <label for="Leader"><b>Leader:</b></label>
+    	<select name='state' style='width:150px'>
+    	 <c:forEach items="${list}" var="u"> 
+		 <option>${u.getUser_Id()}</option>
+		 </c:forEach>
+		 </select>
+		 </br> </br> </br>
+
     	<button type="submit">Add</button>
+    	<a href='ViewAllDeveloper'><p>View All Developers</p></a>;
     	
     	
     	
@@ -34,6 +50,5 @@
         
   </div>
   </form>
-
 </body>
 </html>

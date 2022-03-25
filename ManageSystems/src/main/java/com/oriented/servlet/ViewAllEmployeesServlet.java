@@ -9,58 +9,54 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.oriented.db.LeaderDB;
-import com.oriented.db.ManagerDB;
-import com.oriented.db.TaskDB;
-import com.oriented.tasks.Task;
+import com.oriented.db.UserDB;
 import com.oriented.user.Leader;
-import com.oriented.user.Manager;
+import com.oriented.user.User;
 
 /**
- * Servlet implementation class AddTaskTwoServlet
+ * Servlet implementation class ViewAllEmployeesServlet
  */
-@WebServlet("/AddTaskTwoServlet")
-public class AddTaskTwoServlet extends HttpServlet {
+@WebServlet("/ViewAllEmployeesServlet")
+public class ViewAllEmployeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTaskTwoServlet() {
+    public ViewAllEmployeesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *///
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
-		HttpSession session=request.getSession(false);
-		String se=(String)session.getAttribute("user");
-		Task task=new Task();
-		String id=request.getParameter("id");
-		String text=request.getParameter("text");
-		
-		task.setUser_Id(id);
-		task.setText(text);
-		
-		int result=TaskDB.AddTask(task);
-		
-		
-		if(result>0) {
-     task=TaskDB.getInformation(id);
-     out.print("<p>Task added Successfully</p>");
-     out.print("<p>User id="+task.getUser_Id()+"</p>");
-     out.print("<p>User name="+task.getName()+"</p>");
-     out.print("<p>The task="+task.getText()+"</p>");
-     out.print("<p>The State="+"Has been sent"+"</p>");
-         
-	  }
+		request.getRequestDispatcher("menu.html").include(request, response);
+           
+			          
+			        out.println("<h1>Employees List</h1>");  
+			          
+			        List<User> Userlist=UserDB.getAllEmployees();  
+			       
+			        out.print("<table border='1' width='auto'");  
+			        out.print("<tr><th>User Id</th><th>Name</th><th>City</th><th>Task</th><th>Task State</th></tr>");  
+			        for(User user:Userlist){ 
+			        
+			         out.print("<tr><td>"+user.getId()+"</td><td>"+user.getName()+"</td><td>"+user.getCity()+"</td><td>"+user.getText()+
+			        		 "</td><td>"+user.getState()+"</td></tr>");
+			        
+			         
+			         
+			        }  
+			        out.print("</table>");   
+			        
+			        out.close();
 	}
 
 	/**

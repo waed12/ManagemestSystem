@@ -4,18 +4,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.oriented.db.ConnectionDB;
 import com.oriented.db.DeveloperDB;
 import com.oriented.db.LeaderDB;
 import com.oriented.user.Developer;
+import com.oriented.user.Leader;
 
 /**
  * Servlet implementation class AddDeveloperServlet
@@ -44,26 +47,46 @@ public class AddDeveloperServlet extends HttpServlet {
 		Developer develop=new Developer();
 		
 		
+		
 		String name=request.getParameter("name");
 		String id=request.getParameter("id");
 		String pass=request.getParameter("psw");
 		String city=request.getParameter("city");
+		String leaderId=request.getParameter("state");
+		
 		
 		develop.setName(name);
 		develop.setId(id);
 		develop.setPassword(pass);
 		develop.setCity(city);
+		develop.setLeader(leaderId);
+		
+		
+
+ 	 	
+		 
+		
+		
 		
 		 int result=DeveloperDB.AddDeveloper(develop); 
+		 
 		 if(result>0) {
-			 out.print("<p>Developer Added Successfully</p>");
-			 request.getRequestDispatcher("AddDeveloper.html").forward(request, response);	
+			
+			 
+			
+			// out.print("<p>Developer Added Successfully</p>");
+			 request.getRequestDispatcher("AddDeveloper.jsp").forward(request, response);	
 				try {
 					Connection con=ConnectionDB.getConnection();
 					PreparedStatement prepare;
+					
 					prepare = (PreparedStatement) con.prepareStatement("insert into developer(user_id,leader_id) values(?,?)");
-				    prepare.setString(1, develop.getId());
+					   prepare.setString(1, develop.getId());
+					   prepare.setString(2,develop.getLeader());
+				 
+				    ////
 				    prepare.execute();
+				    /// insert task ...
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
+import com.oriented.tasks.Task;
 import com.oriented.user.Developer;
 
 public class DeveloperDB {
@@ -37,15 +38,17 @@ public class DeveloperDB {
 		  try {
 			
 			Connection con=ConnectionDB.getConnection();
-			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select developer.developer_id,user.name,user.user_id,user.city from developer "
-					+ "INNER JOIN user where developer.user_id=user.user_id and developer.leader_id='"+id+"'");
+			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select developer.user_id,user.name,user.city,task.text,task.state from developer "
+					+ "INNER JOIN user,task where developer.user_id=user.user_id and developer.user_id=task.user_id and developer.leader_id='"+id+"'");
 			ResultSet rs=(ResultSet) prepare.executeQuery();
 			while(rs.next()) {
 		    Developer develop=new Developer();
-			develop.setId(rs.getString(1));	
+			develop.setUser_Id(rs.getString(1));	
 			develop.setName(rs.getString(2));
-			develop.setUser_Id(rs.getString(3));
-			develop.setCity(rs.getString(4));
+			develop.setCity(rs.getString(3));
+			develop.setText(rs.getString(4));
+			develop.setState(rs.getString(5));
+
 			list.add(develop);
 			}
 
@@ -82,6 +85,7 @@ public class DeveloperDB {
 	  public static int AddDeveloper(Developer develop) {
 			 
 		int result=0;
+		int result1=0;
 		  try {
 			
 			Connection con=ConnectionDB.getConnection();
@@ -94,6 +98,14 @@ public class DeveloperDB {
 		    prepare.setString(4, develop.getCity());
       
 		    result=prepare.executeUpdate();
+		    
+		    if(result>0) {
+		      Task task=new Task();
+		      PreparedStatement prepareTAsk=(PreparedStatement) con.prepareStatement("insert into task(user_id,text,task) values(?,?,?)");
+		      prepare.setString(1, develop.getId());
+		      result1=prepare.executeUpdate();
+		    
+		    }
 			
 
 			//con.close();

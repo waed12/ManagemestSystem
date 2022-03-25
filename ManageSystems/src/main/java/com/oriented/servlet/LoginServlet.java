@@ -19,6 +19,8 @@ import com.oriented.db.ConnectionDB;
 import com.oriented.db.DeveloperDB;
 import com.oriented.db.LeaderDB;
 import com.oriented.db.ManagerDB;
+import com.oriented.db.TaskDB;
+import com.oriented.tasks.Task;
 import com.oriented.user.Developer;
 import com.oriented.user.Leader;
 import com.oriented.user.Manager;
@@ -76,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 		         	HttpSession session=request.getSession();
 		                	session.setAttribute("user", username);
 		                	request.getRequestDispatcher("HomeServlet").forward(request, response);
-		                	
+		                    	
 			            }
 			          
 		            

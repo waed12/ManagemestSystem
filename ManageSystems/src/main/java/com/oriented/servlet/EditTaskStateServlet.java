@@ -45,7 +45,7 @@ public class EditTaskStateServlet extends HttpServlet {
         task.setState(state);
        
         
-        int result=TaskDB.TaskState(task,se);
+        int result=TaskDB.EditTaskState(task,se);
         
         if(result>0) {
       	  out.print("<h1>Edit Successfully</h1>");

@@ -1,11 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=windows-1256"
+    pageEncoding="windows-1256"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="windows-1256">
-<title>Add Leader</title>
-<link rel="stylesheet" href="Style.css">
+<title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="menu.html"/>
 <form action="AddLeader" method="post">
 
   <div class="container">

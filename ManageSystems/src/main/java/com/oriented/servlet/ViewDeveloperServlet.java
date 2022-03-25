@@ -56,12 +56,14 @@ public class ViewDeveloperServlet extends HttpServlet {
 			List<Developer> developerList=DeveloperDB.getAllDeveloper(id);  
         
 			out.print("<table border='1' width='auto'>");  
-			out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>add task</th></tr>");  
+			out.print("<tr><th>Id</th><th>Name</th><th>City</th><th>Task</th><th>State</th><th>add task</th></tr>");  
 			for(Developer d:developerList){ 
-				out.print("<tr><td>"+d.getId()+"</td><td>"+d.getName()+"</td><td>"+d.getUser_Id()+"</td><td>"+d.getCity()+
-						"</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
-				out.print("</table>");  
+				out.print("<tr><td>"+d.getUser_Id()+"</td><td>"+d.getName()+"</td><td>"+d.getCity()+"</td><td>"
+			    +d.getText()+"</td><td>"+d.getState()+"</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>"); 
+				
+				 
 	   }
+			out.print("</table>"); 	
 	}
 		
 		
@@ -71,10 +73,10 @@ public class ViewDeveloperServlet extends HttpServlet {
 				out.println("<h1>Developer List</h1>"); 
 		        List<Developer> developerList=DeveloperDB.getAllDeveloper(se);  
 		        out.print("<table border='1' width='auto'>");  
-		        out.print("<tr><th>Id</th><th>Name</th><th>User id</th><th>City</th><th>add task</th></tr>");  
+		        out.print("<tr><th>User Id</th><th>Name</th><th>City</th><th>Task</th><th>Task State</th><th>Add Task</th></tr>");  
 		        for(Developer d:developerList){  
-		        out.print("<tr><td>"+d.getId()+"</td><td>"+d.getName()+"</td><td>"+d.getUser_Id()+"</td><td>"+d.getCity()+
-		      		 "</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
+		        out.print("<tr><td>"+d.getUser_Id()+"</td><td>"+d.getName()+"</td><td>"+d.getCity()+"</td><td>"+d.getText()+
+		      		 "</td><td>"+d.getState()+"</td><td><a href='AddTask?id="+d.getUser_Id()+"'>add</a></td></tr>");  
 		        }  
 		        out.print("</table>"); 
 				break;
