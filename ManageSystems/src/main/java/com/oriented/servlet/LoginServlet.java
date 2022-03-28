@@ -12,113 +12,91 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 import com.oriented.db.ConnectionDB;
-import com.oriented.db.DeveloperDB;
-import com.oriented.db.LeaderDB;
-import com.oriented.db.ManagerDB;
-import com.oriented.db.TaskDB;
-import com.oriented.tasks.Task;
-import com.oriented.user.Developer;
-import com.oriented.user.Leader;
-import com.oriented.user.Manager;
 
-/**
- * Servlet implementation class LoginServlet
- */
-@WebServlet("/LoginServlet")
+import com.oriented.db.TaskDB;
+import com.oriented.db.UserDB;
+import com.oriented.tasks.Task;
+import com.oriented.user.User;
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	String userName;
+	String password;
+	User user = new User();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *///
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public LoginServlet() {
+		super();
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-		
-		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-	
-		
-		String username=request.getParameter("uname");
-		String password=request.getParameter("psw");
-		Connection con = null;
-		
-		
-		try {
-			
-	        con=ConnectionDB.getConnection();
-			//out.println("connected");
-	        Statement stm=(Statement) con.createStatement();
-	        ResultSet result=(ResultSet) stm.executeQuery("select * from user where User_id='"+username+"' and Password='"+password+"'");
-	        if(result.next()) {
-	        	
-	    		Manager manager=ManagerDB.getId();
-	    			            
-			      if(manager.getId().equals(username)) {
-		         	HttpSession session=request.getSession();
-		                	session.setAttribute("user", username);
-		                	request.getRequestDispatcher("HomeServlet").forward(request, response);
-		                    	
-			            }
-			          
-		            
-		    	List <Leader> list1=LeaderDB.getAllId();
-		    	 	for(Leader leader:list1){  
-				            //out.println(leader.getId());	 
-				          if(leader.getUser_Id().equals(username)) {
-			                	HttpSession session=request.getSession();
-			                	session.setAttribute("user", username);
-			                	request.getRequestDispatcher("HomeServlet").forward(request, response);
-			                	break;
-				            }
-				           
-			           }
-		    	//Developer 
-			   List <Developer> list2=DeveloperDB.getAllId();
-		    	 	for(Developer develop:list2){  
-				           // out.println(develop.getUser_Id());	 
-				          if(develop.getUser_Id().equals(username)) {
-			                	HttpSession session=request.getSession();
-			                	session.setAttribute("user", username);
-			                	request.getRequestDispatcher("HomeServlet").forward(request, response);
-			                	break;
-				            }
-				           
-			           }
-		    	
+	public void include(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("login.jsp").include(request, response);
+	}
 
-          
-            } else {
-	        	out.print("User name or password are error");
-	        	request.getRequestDispatcher("Login.html").include(request, response);
-	        }
-	        
-			
-		
-		}catch(Exception e) {
-			out.println(e.getMessage());
-			out.println("not connected");
+	public void forward(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("HomeServlet").forward(request, response);
+	}
+
+	public void getRequserParameter(HttpServletRequest request, HttpServletResponse response) {
+		userName = request.getParameter("userName");
+		password = request.getParameter("password");
+	}
+
+	public void validatin(HttpServletRequest request, HttpServletResponse response, String userName, String password)
+			throws IOException, ServletException {
+
+		HttpSession session = request.getSession();
+		if (userName.trim().isEmpty() && password.trim().isEmpty()) {
+			request.setAttribute("error", "enter user name and password");
+			this.include(request, response);
+		} else if (userName.trim().isEmpty()) {
+			request.setAttribute("error", "enter user name");
+			this.include(request, response);
+		} else if (password.trim().isEmpty()) {
+			request.setAttribute("error", "enter password");
+			this.include(request, response);
+		} else {
+			user = UserDB.userValidation(userName, password);
+			if (UserDB.flag == true) {
+				if (user.getType().equals("manager")) {
+					session.setAttribute("user", userName);
+					this.forward(request, response);
+				} else if (user.getType().equals("leader")) {
+					session.setAttribute("user", userName);
+					this.forward(request, response);
+				} else if (user.getType().equals("developer")) {
+					session.setAttribute("user", userName);
+					this.forward(request, response);
+				}
+			} else {
+				request.setAttribute("error", "user not exist, try again");
+				this.include(request, response);
+
+			}
 		}
+
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		this.getRequserParameter(request, response);
+		this.validatin(request, response, userName, password);
+
+	}
 }

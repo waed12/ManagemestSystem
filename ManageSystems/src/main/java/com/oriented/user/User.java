@@ -1,45 +1,64 @@
 package com.oriented.user;
 
 public class User {
-	private String id,name,password,city,text,state;
+	private String id, userName, password, firstName, lastName, city, type;
 
 	public void setId(String id) {
-		this.id=id;
+		this.id = id;
 	}
+
 	public String getId() {
 		return id;
 	}
-	public void setName(String name) {
-		this.name=name;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getName() {
-		return name;
+
+	public String getUserName() {
+		return userName;
 	}
+
+	public void setPassword(String password) {
+
+		this.password = password;
+	}
+
 	public String getPassword() {
 		return password;
-		
+
 	}
-	public void setPassword(String password) {
-		
-		this.password=password;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-//
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setLasttName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
 	public void setCity(String city) {
-		this.city =city;
+		this.city = city;
 	}
+
 	public String getCity() {
 		return city;
 	}
-	public void setText(String text) {
-		this.text =text;
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	public String getText() {
-		return text;
+
+	public String getType() {
+		return type;
 	}
-	public void setState(String state) {
-		this.state =state;
-	}
-	public String getState() {
-		return state;
-	}
+
 }

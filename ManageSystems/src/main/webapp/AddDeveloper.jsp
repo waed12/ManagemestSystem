@@ -9,11 +9,10 @@
 <body>
 <jsp:include page="menu.html"/>
 
-<%@page import="com.oriented.db.LeaderDB,com.oriented.user.Leader,java.util.*"%> 
+<%@page import="java.util.*"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <form action="AddDeveloper" method="post">
-  	<% List <Leader> list=LeaderDB.getAllId();
-    	 request.setAttribute("list",list);  %>    
+      
 
 
 

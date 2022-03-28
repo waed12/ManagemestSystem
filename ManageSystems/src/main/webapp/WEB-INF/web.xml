@@ -1,169 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>ManageSystems</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
+<element>
 
-  
-  
-            <context-param>
-  <param-name>URL</param-name>
-  <param-value>jdbc:mysql://localhost/managesystems</param-value>
-  </context-param>
-  
-  
-  <context-param>
-  <param-name>DriverName</param-name>
-  <param-value>com.mysql.jdbc.Driver</param-value>
-  </context-param>
-  
+	<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+		xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+		version="4.0">
+		<display-name>ManageSystems</display-name>
+		<welcome-file-list>
+			<welcome-file>index.html</welcome-file>
+			<welcome-file>index.htm</welcome-file>
+			<welcome-file>index.jsp</welcome-file>
+			<welcome-file>default.html</welcome-file>
+			<welcome-file>default.htm</welcome-file>
+			<welcome-file>default.jsp</welcome-file>
+		</welcome-file-list>
 
 
-  <context-param>
-  <param-name>UserName</param-name>
-  <param-value>root</param-value>
-  </context-param>
-  
-  <context-param>
-  <param-name>Password</param-name>
-  <param-value></param-value>
-  </context-param>
-   
-      <listener>
-  <listener-class>com.oriented.DBlistener.DbListener</listener-class>
-  </listener>   
-
-  <servlet>
-  <servlet-name>Login</servlet-name>
-  <servlet-class>com.oriented.servlet.LoginServlet</servlet-class>
-  </servlet>
-
-  
-  <servlet-mapping>
-  <servlet-name>Login</servlet-name>
-  <url-pattern>/LoginServ</url-pattern>
-  </servlet-mapping>
-  
 
 
-  
-   <servlet>
-  <servlet-name>Home</servlet-name>
-  <servlet-class>com.oriented.servlet.HomeServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  <servlet-name>Home</servlet-name>
-  <url-pattern>/HomeServ</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>Profile</servlet-name>
-  <servlet-class>com.oriented.servlet.ProfilePageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>Profile</servlet-name>
-  <url-pattern>/ProfilePage</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>Authorities</servlet-name>
-  <servlet-class>com.oriented.servlet.AuthoritiesServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>Authorities</servlet-name>
-  <url-pattern>/AuthoritiesServ</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>Logout</servlet-name>
-  <servlet-class>com.oriented.servlet.LogoutServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>Logout</servlet-name>
-  <url-pattern>/LogoutServ</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>AddDeveloper</servlet-name>
-  <servlet-class>com.oriented.servlet.AddDeveloperServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>AddDeveloper</servlet-name>
-  <url-pattern>/AddDeveloper</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>AddLeader</servlet-name>
-  <servlet-class>com.oriented.servlet.AddLeaderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>AddLeader</servlet-name>
-  <url-pattern>/AddLeader</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>AddTask1</servlet-name>
-  <servlet-class>com.oriented.servlet.AddTaskOneServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>AddTask1</servlet-name>
-  <url-pattern>/AddTask</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>AddTask2</servlet-name>
-  <servlet-class>com.oriented.servlet.AddTaskTwoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>AddTask2</servlet-name>
-  <url-pattern>/AddTask2</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-  <servlet-name>EditTask</servlet-name>
-  <servlet-class>com.oriented.servlet.EditTaskStateServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>EditTask</servlet-name>
-  <url-pattern>/EditTaskState</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-  <servlet-name>ViewLeader</servlet-name>
-  <servlet-class>com.oriented.servlet.ViewLeaderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>ViewLeader</servlet-name>
-  <url-pattern>/ViewAllLeader</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>ViewDeveloper</servlet-name>
-  <servlet-class>com.oriented.servlet.ViewDeveloperServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>ViewDeveloper</servlet-name>
-  <url-pattern>/ViewDeveloper</url-pattern>
-  </servlet-mapping>
-  
+		<context-param>
+			<param-name>URL</param-name>
+			<param-value>jdbc:mysql://localhost/managesystem</param-value>
+		</context-param>
 
-  <servlet>
-  <servlet-name>ViewAllEmployees</servlet-name>
-  <servlet-class>com.oriented.servlet.ViewAllEmployeesServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>ViewAllEmployees</servlet-name>
-  <url-pattern>/ViewAllEmployees</url-pattern>
-  </servlet-mapping>
 
-  
-  
-</web-app>
+		<context-param>
+			<param-name>DriverName</param-name>
+			<param-value>com.mysql.jdbc.Driver</param-value>
+		</context-param>
+
+
+
+		<context-param>
+			<param-name>UserName</param-name>
+			<param-value>root</param-value>
+		</context-param>
+
+		<context-param>
+			<param-name>Password</param-name>
+			<param-value></param-value>
+		</context-param>
+
+		<listener>
+			<listener-class>com.oriented.DBlistener.DbListener</listener-class>
+		</listener>
+
+		<servlet>
+			<servlet-name>Login</servlet-name>
+			<servlet-class>com.oriented.servlet.LoginServlet</servlet-class>
+		</servlet>
+
+
+		<servlet-mapping>
+			<servlet-name>Login</servlet-name>
+			<url-pattern>/LoginServ</url-pattern>
+		</servlet-mapping>
+
+
+
+
+		<servlet>
+			<servlet-name>Home</servlet-name>
+			<servlet-class>com.oriented.servlet.HomeServlet</servlet-class>
+		</servlet>
+
+		<servlet-mapping>
+			<servlet-name>Home</servlet-name>
+			<url-pattern>/HomeServlet</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>Profile</servlet-name>
+			<servlet-class>com.oriented.servlet.ProfilePageServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>Profile</servlet-name>
+			<url-pattern>/ProfilePage</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>Authorities</servlet-name>
+			<servlet-class>com.oriented.servlet.AuthoritiesServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>Authorities</servlet-name>
+			<url-pattern>/AuthoritiesServlet</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>Logout</servlet-name>
+			<servlet-class>com.oriented.servlet.LogoutServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>Logout</servlet-name>
+			<url-pattern>/LogoutServlet</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>AddDeveloper</servlet-name>
+			<servlet-class>com.oriented.servlet.AddDeveloperServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>AddDeveloper</servlet-name>
+			<url-pattern>/AddDeveloper</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>AddLeader</servlet-name>
+			<servlet-class>com.oriented.servlet.AddLeaderServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>AddLeader</servlet-name>
+			<url-pattern>/AddLeader</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>AddTask1</servlet-name>
+			<servlet-class>com.oriented.servlet.AddTaskOneServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>AddTask1</servlet-name>
+			<url-pattern>/AddTask</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>AddTask2</servlet-name>
+			<servlet-class>com.oriented.servlet.AddTaskTwoServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>AddTask2</servlet-name>
+			<url-pattern>/AddTask2</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>EditTask</servlet-name>
+			<servlet-class>com.oriented.servlet.EditTaskStateServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>EditTask</servlet-name>
+			<url-pattern>/EditTaskState</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>ViewLeader</servlet-name>
+			<servlet-class>com.oriented.servlet.ViewLeaderServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>ViewLeader</servlet-name>
+			<url-pattern>/ViewAllLeader</url-pattern>
+		</servlet-mapping>
+
+		<servlet>
+			<servlet-name>ViewDeveloper</servlet-name>
+			<servlet-class>com.oriented.servlet.ViewDeveloperServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>ViewDeveloper</servlet-name>
+			<url-pattern>/ViewDeveloper</url-pattern>
+		</servlet-mapping>
+
+
+		<servlet>
+			<servlet-name>ViewAllEmployees</servlet-name>
+			<servlet-class>com.oriented.servlet.ViewAllEmployeesServlet
+			</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>ViewAllEmployees</servlet-name>
+			<url-pattern>/ViewAllEmployees</url-pattern>
+		</servlet-mapping>
+
+
+
+	</web-app>
+</element>

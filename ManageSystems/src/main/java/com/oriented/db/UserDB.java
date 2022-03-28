@@ -1,4 +1,5 @@
 package com.oriented.db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,49 +8,36 @@ import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
-import com.oriented.user.Leader;
 import com.oriented.user.User;
 
+import javax.swing.*;
+
 public class UserDB {
-	//
-	  public static Connection getConnection(){  
-			Connection con = null;
+	public static boolean flag = false;
 
-			
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-		        con=DriverManager.getConnection("jdbc:mysql://localhost/managesystems","root",""); 
-				System.out.println("connected");
-			    
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-				System.out.println("not connected");
-			}
-			return con;
-	    }  
-	  public static List <User> getAllEmployees() {
-		 List <User> Userlist=new ArrayList <User>();
-		
-		  try {
-			
-			Connection con=ConnectionDB.getConnection();
-			PreparedStatement prepare=(PreparedStatement) con.prepareStatement("select user.user_id,user.name,user.city,task.text,task.state from user INNER JOIN task where user.user_id=task.user_id ");
-			ResultSet rs=(ResultSet) prepare.executeQuery();
-			while(rs.next()) {
-		    User user=new User();
-			user.setId(rs.getString(1));	
-			user.setName(rs.getString(2));
-			user.setCity(rs.getString(3));
-			user.setText(rs.getString(4));
-			user.setState(rs.getString(5));
-			Userlist.add(user);
+	public static User userValidation(String userName, String password) {
+		User user = new User();
+		try {
+
+			Connection con = ConnectionDB.getConnection();
+			PreparedStatement prepare = (PreparedStatement) con.prepareStatement(
+					"select * from user where user_name='" + userName + "' and password='" + password + "'");
+			ResultSet result = (ResultSet) prepare.executeQuery();
+			if (result.next()) {
+				flag = true;
+				user.setId(result.getString(1));
+				user.setPassword(result.getString(2));
+				user.setType(result.getString(6));
+			} else {
+				flag = false;
 			}
 
-			//con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		  return Userlist;
-	  }
+		return user;
+
+	}
+
 }

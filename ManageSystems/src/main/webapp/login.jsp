@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=windows-1256"
+	pageEncoding="windows-1256"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +17,10 @@
 				placeholder="Enter Username" name="userName"><br> <label
 				for="password"><b>Password</b></label> <input type="password"
 				placeholder="Enter Password" name="password"><br>
-
+				 <p><span style="color:red">${error}</span></p>
 			<button type="submit">Login</button>
+
 		</div>
 	</form>
-
 </body>
 </html>
-
-
-

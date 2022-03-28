@@ -14,64 +14,47 @@ import javax.servlet.http.HttpSession;
 import com.oriented.db.TaskDB;
 import com.oriented.tasks.Task;
 
-/**
- * Servlet implementation class HomeServlet
- */
-@WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *///
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
-		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		request.getRequestDispatcher("menu.html").include(request, response);
+	public HomeServlet() {
+		super();
+
+	}
+
+	public void getTask(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	PrintWriter out=response.getWriter();
 		HttpSession session=request.getSession(false);
 		String se=(String)session.getAttribute("user");
-
-		
-	
-		
-		List <Task> Tasklist=TaskDB.getTask(se);
+    	List <Task> Tasklist=TaskDB.getTask(se);
         for(Task t:Tasklist){  
           out.println("</br>");
           out.print("<form action=EditTaskState>");
           out.print("<div style=text-align:Center>");
-          out.println("<h1>Your Task is:"+t.getText()+"</h1>");
-          //out.print("<select name='state' style='width:150px'>");  
-          //out.print("<option>In progress</option>");  
-         // out.print("<option>Done</option>");  
-         // out.print("<option>Other</option>");  
-          //out.print("  </select>");
+          out.println("<h1>Your Task is:"+t.getText()+"</h1>");  
 		  out.println("<input type=radio name=state value =Recieved>Recieved");
 		  out.println("<input type=radio name=state value =Inprogress>InProgress");
 		  out.println("<input type=radio name=state value =Done>Done");
           out.print("<tr><td colspan='2'><input type='submit' value='save '/></td></tr>");  
           out.print("</div>");
           out.print("</form>");
-          
-          
-        }  
+        }
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		request.getRequestDispatcher("menu.html").include(request, response);
+		this.getTask(request, response);
+		
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-    doGet(request,response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
 	}
 
 }
