@@ -13,52 +13,50 @@ import javax.servlet.http.HttpSession;
 import com.oriented.db.TaskDB;
 import com.oriented.tasks.Task;
 
-/**
- * Servlet implementation class EditTaskStateServlet
- */
-@WebServlet("/EditTaskStateServlet")
 public class EditTaskStateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditTaskStateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	String stateRadioButton;
+	Task task = new Task();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *///
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-        response.setContentType("text/html");  
-        PrintWriter out=response.getWriter();  
-        Task task=new Task();
-		HttpSession session=request.getSession(false);
-		String se=(String)session.getAttribute("user"); 
-        
-        
-        String state=request.getParameter("state");
-      
-        task.setState(state);
-       
-        
-        int result=TaskDB.EditTaskState(task,se);
-        
-        if(result>0) {
-      	  out.print("<h1>Edit Successfully</h1>");
-      	  request.getRequestDispatcher("HomeServ").forward(request, response);
-        }  
+	public EditTaskStateServlet() {
+		super();
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void getRequsetParameter(HttpServletRequest request, HttpServletResponse response) {
+		stateRadioButton = request.getParameter("state");
+	}
+
+	public void editTaskState(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(false);
+		String se = (String) session.getAttribute("user");
+
+		task.setState(stateRadioButton);
+
+		int result = TaskDB.EditTaskState(task, se);
+
+		if (result > 0) {
+			out.print("<h1>Edit Successfully</h1>");
+			request.getRequestDispatcher("HomeServlet").forward(request, response);
+		}
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.setContentType("text/html");
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
+		this.getRequsetParameter(request, response);
+		this.editTaskState(request, response);
 	}
 
 }

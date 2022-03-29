@@ -22,32 +22,35 @@ public class HomeServlet extends HttpServlet {
 
 	}
 
+	public void include(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("menu.html").include(request, response);
+	}
+
 	public void getTask(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	PrintWriter out=response.getWriter();
-		HttpSession session=request.getSession(false);
-		String se=(String)session.getAttribute("user");
-    	List <Task> Tasklist=TaskDB.getTask(se);
-        for(Task t:Tasklist){  
-          out.println("</br>");
-          out.print("<form action=EditTaskState>");
-          out.print("<div style=text-align:Center>");
-          out.println("<h1>Your Task is:"+t.getText()+"</h1>");  
-		  out.println("<input type=radio name=state value =Recieved>Recieved");
-		  out.println("<input type=radio name=state value =Inprogress>InProgress");
-		  out.println("<input type=radio name=state value =Done>Done");
-          out.print("<tr><td colspan='2'><input type='submit' value='save '/></td></tr>");  
-          out.print("</div>");
-          out.print("</form>");
-        }
-    }
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(false);
+		String se = (String) session.getAttribute("user");
+		List<Task> Tasklist = TaskDB.getTask(se);
+		for (Task task : Tasklist) {
+			out.println("</br>");
+			out.print("<form action=EditTaskState>");
+			out.print("<div style=text-align:Center>");
+			out.println("<h1>Your Task is:" + task.getText() + "</h1>");
+			out.println("<input type=radio name=state value =Recieved>Recieved");
+			out.println("<input type=radio name=state value =Inprogress>InProgress");
+			out.println("<input type=radio name=state value =Done>Done");
+			out.print("<tr><td colspan='2'><input type='submit' value='save '/></td></tr>");
+			out.print("</div>");
+			out.print("</form>");
+		}
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		request.getRequestDispatcher("menu.html").include(request, response);
+		this.include(request, response);
 		this.getTask(request, response);
-		
 
 	}
 

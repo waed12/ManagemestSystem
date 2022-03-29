@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		request.getRequestDispatcher("HomeServlet").forward(request, response);
 	}
 
-	public void getRequserParameter(HttpServletRequest request, HttpServletResponse response) {
+	public void getRequsetParameter(HttpServletRequest request, HttpServletResponse response) {
 		userName = request.getParameter("userName");
 		password = request.getParameter("password");
 	}
@@ -93,9 +93,8 @@ public class LoginServlet extends HttpServlet {
 		doGet(request, response);
 
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 
-		this.getRequserParameter(request, response);
+		this.getRequsetParameter(request, response);
 		this.validatin(request, response, userName, password);
 
 	}
