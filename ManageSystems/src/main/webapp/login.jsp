@@ -13,7 +13,7 @@
 			<img src="management.jpg" alt="Avatar" class="avatar">
 		</div>
 		<div class="container">
-			<label for="userName"><b>Username</b></label> <input type="text"
+			<label for="userName"><b>UserName</b></label> <input type="text"
 				placeholder="Enter Username" name="userName"><br> <label
 				for="password"><b>Password</b></label> <input type="password"
 				placeholder="Enter Password" name="password"><br>

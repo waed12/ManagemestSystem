@@ -12,10 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import com.oriented.db.TaskDB;
 import com.oriented.tasks.Task;
+import com.oriented.user.User;
 
 public class EditTaskStateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String stateRadioButton;
+	private String stateradioButton;
+	private HttpSession session;
+	private User userSession;
 	Task task = new Task();
 
 	public EditTaskStateServlet() {
@@ -24,30 +27,39 @@ public class EditTaskStateServlet extends HttpServlet {
 	}
 
 	public void getRequsetParameter(HttpServletRequest request, HttpServletResponse response) {
-		stateRadioButton = request.getParameter("state");
+		stateradioButton = request.getParameter("stateradioButton");
+	}
+
+	public void include(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("HomeServlet").include(request, response);
 	}
 
 	public void editTaskState(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession(false);
-		String se = (String) session.getAttribute("user");
+		session = request.getSession(false);
+		userSession = (User) session.getAttribute("User");
 
-		task.setState(stateRadioButton);
+		task.setState(stateradioButton);
 
-		int result = TaskDB.EditTaskState(task, se);
+		int result = TaskDB.EditTaskState(task, userSession.getId());
 
 		if (result > 0) {
-			out.print("<h1>Edit Successfully</h1>");
-			request.getRequestDispatcher("HomeServlet").forward(request, response);
+
+			this.include(request, response);
+			out.print("<P style=text-align:center>Your Task state now is: " + task.getState() + "<p1>");
+
 		}
 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 
 		response.setContentType("text/html");
+		this.getRequsetParameter(request, response);
+		this.editTaskState(request, response);
 
 	}
 
@@ -55,8 +67,7 @@ public class EditTaskStateServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		doGet(request, response);
-		this.getRequsetParameter(request, response);
-		this.editTaskState(request, response);
+
 	}
 
 }

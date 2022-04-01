@@ -12,17 +12,19 @@ import com.oriented.tasks.Task;
 
 public class TaskDB {
 
-//
 	public static List<Task> getTask(String userId) {
+		Task task = null;
 		List<Task> list = new ArrayList<Task>();
 
 		try {
 			Connection con = ConnectionDB.getConnection();
-			PreparedStatement ps = (PreparedStatement) con
-					.prepareStatement("select text from task where user_id='" + userId + "'");
-			ResultSet result = (ResultSet) ps.executeQuery();
+			PreparedStatement statement = (PreparedStatement) con
+					.prepareStatement("select task_text from task where user_name=?");
+			statement.setString(1, userId);
+			ResultSet result = (ResultSet) statement.executeQuery();
 			while (result.next()) {
-				Task task = new Task();
+
+				task = new Task();
 				task.setText(result.getString(1));
 				list.add(task);
 			}
@@ -34,21 +36,21 @@ public class TaskDB {
 		return list;
 	}
 
-	public static int EditTaskState(Task task, String id) {
+	public static int EditTaskState(Task task, String userName) {
 		int result = 0;
 
 		try {
 			Connection con = ConnectionDB.getConnection();
-			PreparedStatement prepare = (PreparedStatement) con
-					.prepareStatement("update Task set state=? where user_id='" + id + "'");
+			PreparedStatement statement = (PreparedStatement) con
+					.prepareStatement("update Task set task_state=? where user_name=?");
+			statement.setString(1, task.getState());
+			statement.setString(2, userName);
 
-			prepare.setString(1, task.getState());
-
-			result = prepare.executeUpdate();
+			result = statement.executeUpdate();
 
 		}
 
-		catch (SQLException e) { // TODO Auto-generated catch block
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -69,7 +71,7 @@ public class TaskDB {
 			prepare.setString(3, "Has been sent");
 			result = prepare.executeUpdate();
 
-			// con.close();
+			
 		} catch (SQLException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -89,7 +91,7 @@ public class TaskDB {
 
 			result = prepare.executeUpdate();
 
-			// con.close();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

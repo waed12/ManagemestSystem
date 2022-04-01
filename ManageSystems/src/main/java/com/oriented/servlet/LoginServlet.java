@@ -1,6 +1,7 @@
 package com.oriented.servlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,11 +23,12 @@ import com.oriented.db.TaskDB;
 import com.oriented.db.UserDB;
 import com.oriented.tasks.Task;
 import com.oriented.user.User;
+import com.oriented.constant.constantInterface;
 
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet implements constantInterface {
 	private static final long serialVersionUID = 1L;
-	String userName;
-	String password;
+	private String userName;
+	private String password;
 	User user = new User();
 
 	public LoginServlet() {
@@ -47,34 +49,27 @@ public class LoginServlet extends HttpServlet {
 		password = request.getParameter("password");
 	}
 
-	public void validatin(HttpServletRequest request, HttpServletResponse response, String userName, String password)
+	public void validation(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		HttpSession session = request.getSession();
-		if (userName.trim().isEmpty() && password.trim().isEmpty()) {
-			request.setAttribute("error", "enter user name and password");
+		if (userName.equals(null) || userName.trim().isEmpty() && password.trim().isEmpty() || password.equals(null)) {
+			request.setAttribute("error", enteruserNameandPassword);
 			this.include(request, response);
-		} else if (userName.trim().isEmpty()) {
-			request.setAttribute("error", "enter user name");
+		} else if (userName.equals(null) || userName.trim().isEmpty()) {
+			request.setAttribute("error", enteruserName);
 			this.include(request, response);
-		} else if (password.trim().isEmpty()) {
-			request.setAttribute("error", "enter password");
+		} else if (password.equals(null) || password.trim().isEmpty()) {
+			request.setAttribute("error", enterPassword);
 			this.include(request, response);
 		} else {
+
 			user = UserDB.userValidation(userName, password);
-			if (UserDB.flag == true) {
-				if (user.getType().equals("manager")) {
-					session.setAttribute("user", userName);
-					this.forward(request, response);
-				} else if (user.getType().equals("leader")) {
-					session.setAttribute("user", userName);
-					this.forward(request, response);
-				} else if (user.getType().equals("developer")) {
-					session.setAttribute("user", userName);
-					this.forward(request, response);
-				}
+			if (user != null) {
+				session.setAttribute("User", user);
+				this.forward(request, response);
 			} else {
-				request.setAttribute("error", "user not exist, try again");
+				request.setAttribute("error", usernotExist);
 				this.include(request, response);
 
 			}
@@ -95,7 +90,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		this.getRequsetParameter(request, response);
-		this.validatin(request, response, userName, password);
+		this.validation(request, response);
 
 	}
 }
