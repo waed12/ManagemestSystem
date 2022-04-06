@@ -19,9 +19,7 @@ import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 import com.oriented.db.ConnectionDB;
 
-import com.oriented.db.TaskDB;
 import com.oriented.db.UserDB;
-import com.oriented.tasks.Task;
 import com.oriented.user.User;
 import com.oriented.constant.constantInterface;
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.oriented.db.TaskDB;
-import com.oriented.tasks.Task;
+import com.oriented.tasks.TaskBean;
 import com.oriented.user.User;
 
 public class EditTaskStateServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class EditTaskStateServlet extends HttpServlet {
 	private String stateradioButton;
 	private HttpSession session;
 	private User userSession;
-	Task task = new Task();
+	TaskBean task = new TaskBean();
 
 	public EditTaskStateServlet() {
 		super();
@@ -31,7 +31,7 @@ public class EditTaskStateServlet extends HttpServlet {
 	}
 
 	public void include(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("HomeServlet").include(request, response);
+		request.getRequestDispatcher("Home.jsp").include(request, response);
 	}
 
 	public void editTaskState(HttpServletRequest request, HttpServletResponse response)

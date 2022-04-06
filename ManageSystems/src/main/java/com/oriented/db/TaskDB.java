@@ -1,20 +1,19 @@
 package com.oriented.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
-import com.oriented.tasks.Task;
+import com.oriented.tasks.TaskBean;
 
 public class TaskDB {
 
-	public static List<Task> getTask(String userId) {
-		Task task = null;
-		List<Task> list = new ArrayList<Task>();
+	public static List<TaskBean> getTask(String userId) {
+		TaskBean task = null;
+		List<TaskBean> list = new ArrayList<TaskBean>();
 
 		try {
 			Connection con = ConnectionDB.getConnection();
@@ -24,7 +23,7 @@ public class TaskDB {
 			ResultSet result = (ResultSet) statement.executeQuery();
 			while (result.next()) {
 
-				task = new Task();
+				task = new TaskBean();
 				task.setText(result.getString(1));
 				list.add(task);
 			}
@@ -36,7 +35,7 @@ public class TaskDB {
 		return list;
 	}
 
-	public static int EditTaskState(Task task, String userName) {
+	public static int EditTaskState(TaskBean task, String userName) {
 		int result = 0;
 
 		try {
@@ -57,7 +56,7 @@ public class TaskDB {
 		return result;
 	}
 
-	public static int AddTask(Task task) {
+	public static int AddTask(TaskBean task) {
 
 		int result = 0;
 		try {
@@ -71,14 +70,13 @@ public class TaskDB {
 			prepare.setString(3, "Has been sent");
 			result = prepare.executeUpdate();
 
-			
 		} catch (SQLException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public static int EditTask(Task task, String text, String id) {
+	public static int EditTask(TaskBean task, String text, String id) {
 
 		int result = 0;
 		try {
@@ -91,58 +89,10 @@ public class TaskDB {
 
 			result = prepare.executeUpdate();
 
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	public static Task getInformation(String id) {
-		Task task = new Task();
-
-		try {
-			Connection con = ConnectionDB.getConnection();
-			PreparedStatement ps = (PreparedStatement) con.prepareStatement(
-					"select task.user_id,user.name, task.text,task.state from task INNER JOIN user where task.user_id=user.user_id and task.user_id='"
-							+ id + "'");
-			ResultSet result = (ResultSet) ps.executeQuery();
-			if (result.next()) {
-				task.setUser_Id(result.getString(1));
-				task.setName(result.getString(2));
-				task.setText(result.getString(3));
-
-			} // con.close();
-
-		} catch (SQLException e) { // TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return task;
-	}
-
-	public static List<Task> getAllTask(String id) {
-		List<Task> Tasklist = new ArrayList<Task>();
-
-		try {
-			Connection con = ConnectionDB.getConnection();
-			PreparedStatement ps = (PreparedStatement) con
-					.prepareStatement("select developer.user_id,user.name,task.text from developer INNER JOIN task,user"
-							+ " where developer.user_id=user.user_id and developer.user_id=task.user_id and developer.leader_id='"
-							+ id + "'");
-			ResultSet result = (ResultSet) ps.executeQuery();
-			while (result.next()) {
-				Task task = new Task();
-				task.setUser_Id(result.getString(1));
-				task.setName(result.getString(2));
-				task.setText(result.getString(3));
-
-				Tasklist.add(task);
-			} // con.close();
-
-		} catch (SQLException e) { // TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return Tasklist;
 	}
 
 }
